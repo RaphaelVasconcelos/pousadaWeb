@@ -16,8 +16,6 @@
 <h2>Registro de quarto</h2>
 <form:form method="POST" action="/quartoRegistrado">
 	<form:select path="numero" items="${quartos}" />
-	<form:label path="numero">Numero</form:label>
-	<form:input path="numero" type="text" placeholder="Numero do quarto" />
     <form:label path="possuiBanheira" class="checkbox">
     <form:checkbox path="possuiBanheira"/> Banheira
     </form:label>

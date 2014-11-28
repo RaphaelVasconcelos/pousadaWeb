@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 
 public class QuartoComum implements Quarto {
 	
-	private String numero;
+	private Integer numero;
 	private Boolean estaOcupado;
 	private Boolean possuiBanheira;
 	private DateTime dataEntrada;
@@ -26,11 +26,11 @@ public class QuartoComum implements Quarto {
 		return dataEntrada;
 	}
 	
-	public String getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 	
-	public void setNumero(String numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 	

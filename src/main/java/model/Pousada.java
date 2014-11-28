@@ -5,19 +5,19 @@ import java.util.Map;
 
 public class Pousada {
 	
-	private Map<String, Quarto> quartosOcupados = new HashMap<String, Quarto>();
-	private Map<String, Quarto> quartosLivres = new HashMap<String, Quarto>();
+	private Map<Integer, Quarto> quartosOcupados = new HashMap<Integer, Quarto>();
+	private Map<Integer, Quarto> quartosLivres = new HashMap<Integer, Quarto>();
 	
-	public Map<String, Quarto> getQuartosOcupados() {
+	public Map<Integer, Quarto> getQuartosOcupados() {
 		return quartosOcupados;
 	}
-	public void setQuartosOcupados(Map<String, Quarto> quartosOcupados) {
+	public void setQuartosOcupados(Map<Integer, Quarto> quartosOcupados) {
 		this.quartosOcupados = quartosOcupados;
 	}
-	public Map<String, Quarto> getQuartosLivres() {
+	public Map<Integer, Quarto> getQuartosLivres() {
 		return quartosLivres;
 	}
-	public void setQuartosLivres(Map<String, Quarto> quartosLivres) {
+	public void setQuartosLivres(Map<Integer, Quarto> quartosLivres) {
 		this.quartosLivres = quartosLivres;
 	}
 	

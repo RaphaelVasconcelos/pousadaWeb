@@ -2,8 +2,8 @@ package controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import model.Chale;
 import model.Pousada;
@@ -37,12 +37,12 @@ public class PousadaController {
 	
 	private void criaQuartos() {
 		pousada = new Pousada();
-		Map<String, Quarto> quartos = new HashMap<String, Quarto>();
+		Map<Integer, Quarto> quartos = new HashMap<Integer, Quarto>();
 		for(Integer i=1; i<11; i++){
-			quartos.put(i.toString(), new QuartoComum());
+			quartos.put(i, new QuartoComum());
 		}
 		for(Integer i=11; i<21; i++){
-			quartos.put(i.toString(), new Chale());
+			quartos.put(i, new Chale());
 		}
 		
 		pousada.setQuartosLivres(quartos);
@@ -50,21 +50,28 @@ public class PousadaController {
 	}
 
 	@RequestMapping(value = "/registroQuartoComum", method = RequestMethod.GET)
-	public ModelAndView registroQuarto(HttpServletRequest request) {
-		Map<String,Quarto> quartos = pousada.getQuartosLivres();
-		return new ModelAndView("cadastroQuartoComum", "command", new QuartoComum());
+	public ModelAndView registroQuarto() {
+		Set<Integer> quartos = pousada.getQuartosLivres().keySet();
+		ModelAndView mv = new ModelAndView("cadastroQuartoComum", "command", new QuartoComum());
+		mv.addObject("quartos", quartos);
+		return mv;
 	}
 	
 	@RequestMapping(value = "/quartoRegistrado", method = RequestMethod.POST)
 	public String quartoRegistrado(@ModelAttribute("SpringWeb")QuartoComum quartoComum, ModelMap model) {
-		model.addAttribute("numero", quartoComum.getNumero());
-		model.addAttribute("possuiBanheira", quartoComum.getPossuiBanheira());
 		quartoComum.setEstaOcupado(true);
 		
 		pousada.getQuartosLivres().remove(quartoComum.getNumero());
 		pousada.getQuartosOcupados().put(quartoComum.getNumero(), quartoComum);
+		Set<Entry<Integer, Quarto>> quartosOcupados = pousada.getQuartosOcupados().entrySet();
 		
-		return "quartos";
+		model.addAttribute("numero", quartoComum.getNumero());
+		model.addAttribute("possuiBanheira", quartoComum.getPossuiBanheira());
+		model.addAttribute("quartos", quartosOcupados);
+		
+		
+		
+		return "quartosOcupados";
 	}
 	
 	@RequestMapping(value = "/liberaQuartoComum", method = RequestMethod.POST)
@@ -72,7 +79,7 @@ public class PousadaController {
 		
 		Quarto quarto = pousada.getQuartosOcupados().get(userId);
 		pousada.getQuartosOcupados().remove(userId);
-		pousada.getQuartosLivres().put(quarto.getNumero(), quarto);
+//		pousada.getQuartosLivres().put(quarto.getNumero(), quarto);
 		
 		return "quartos";
 	}

@@ -6,9 +6,9 @@ public interface Quarto {
 	
  	public Double calculaDiaria();
 	
-	public String getNumero();
+	public Integer getNumero();
 	
-	public void setNumero(String numero);
+	public void setNumero(Integer numero);
 	
 	public DateTime getDataEntrada();
 	

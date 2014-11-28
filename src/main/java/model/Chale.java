@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 
 public class Chale implements Quarto {
 	
-	private String numero;
+	private Integer numero;
 	private Boolean estaOcupado;
 	private Boolean camaExtra;
 	private Integer qtdCamaExtra;
@@ -38,11 +38,11 @@ public class Chale implements Quarto {
 		this.qtdCamaExtra = qtdCamaExtra;
 	}
 	
-	public String getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 	
-	public void setNumero(String numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 	
