@@ -44,7 +44,7 @@
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
               <li><a href="/registroQuartoComum">Cadastrar Reserva</a></li>
-              <li><a href="#about">Finalizar Reserva</a></li>
+              <li><a href="/liberaQuartoComum">Finalizar Reserva</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

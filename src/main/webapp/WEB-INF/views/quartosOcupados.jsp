@@ -32,7 +32,6 @@
   </head>
 
   <body>
-	${quartosOcupados}
     <table class="table">
     	<thead>
 			<tr>
@@ -42,11 +41,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${quartosOcupados}" var="quarto">
+			<c:forEach items="${quartos}" var="quarto">
 				<tr>
-				  <td>${numero}</td>
-				  <td>${possuiBanheira}</td>
 				  <td>${quarto.value.numero}</td>
+				  <td>${quarto.value.possuiBanheira}</td>
+				  <td>${datafull}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

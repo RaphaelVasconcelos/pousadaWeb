@@ -1,5 +1,7 @@
 package controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,12 +12,19 @@ import model.Pousada;
 import model.Quarto;
 import model.QuartoComum;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -26,7 +35,7 @@ public class PousadaController {
 	
 	@RequestMapping("/principal")
 	public String execute() {
-		System.out.println("Executando a lógica com Spring MVC");
+		System.out.println("Executando a lï¿½gica com Spring MVC");
 		
 		if(pousada == null){
 			criaQuartos();
@@ -58,29 +67,47 @@ public class PousadaController {
 	}
 	
 	@RequestMapping(value = "/quartoRegistrado", method = RequestMethod.POST)
-	public String quartoRegistrado(@ModelAttribute("SpringWeb")QuartoComum quartoComum, ModelMap model) {
+	public String quartoRegistrado(@ModelAttribute QuartoComum quartoComum, ModelMap model) {
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		DateTime localDate = new DateTime();
 		quartoComum.setEstaOcupado(true);
+		quartoComum.setDataEntrada(localDate);
 		
 		pousada.getQuartosLivres().remove(quartoComum.getNumero());
 		pousada.getQuartosOcupados().put(quartoComum.getNumero(), quartoComum);
 		Set<Entry<Integer, Quarto>> quartosOcupados = pousada.getQuartosOcupados().entrySet();
 		
-		model.addAttribute("numero", quartoComum.getNumero());
-		model.addAttribute("possuiBanheira", quartoComum.getPossuiBanheira());
 		model.addAttribute("quartos", quartosOcupados);
-		
+		model.addAttribute("datafull", df.format(quartoComum.getDataEntrada().toDate()));
 		
 		
 		return "quartosOcupados";
 	}
 	
-	@RequestMapping(value = "/liberaQuartoComum", method = RequestMethod.POST)
-	public String liberaQuarto(@ModelAttribute("userId")Integer userId, Model model) {
+	@RequestMapping(value = "/liberaQuartoComum", method = RequestMethod.GET)
+	public ModelAndView liberaQuarto() {
 		
-		Quarto quarto = pousada.getQuartosOcupados().get(userId);
-		pousada.getQuartosOcupados().remove(userId);
-//		pousada.getQuartosLivres().put(quarto.getNumero(), quarto);
+		Set<Integer> quartos = pousada.getQuartosOcupados().keySet();
+		ModelAndView mv = new ModelAndView("liberaQuartoComum", "command", new QuartoComum());
+		mv.addObject("quartos", quartos);
+		return mv;
 		
-		return "quartos";
+	}
+	
+	@RequestMapping(value = "/quartoComumLiberado", method = RequestMethod.POST)
+	public String quartoLiberado(@ModelAttribute QuartoComum quartoComum, ModelMap model) {
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		DateTime localDate = new DateTime();
+		quartoComum.setEstaOcupado(false);
+		
+		pousada.getQuartosOcupados().remove(quartoComum.getNumero());
+		pousada.getQuartosLivres().put(quartoComum.getNumero(), quartoComum);
+		Set<Entry<Integer, Quarto>> quartosOcupados = pousada.getQuartosOcupados().entrySet();
+		
+		model.addAttribute("quartos", quartosOcupados);
+		model.addAttribute("datafull", df.format(localDate.toDate()));
+		
+		
+		return "quartosOcupados";
 	}
 }
