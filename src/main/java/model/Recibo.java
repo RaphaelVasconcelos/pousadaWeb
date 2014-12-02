@@ -21,11 +21,9 @@ public class Recibo {
 	public void setNumDiarias(Integer numDiarias) {
 		this.numDiarias = numDiarias;
 	}
-	public Double getTotalDevido(Quarto quarto) {
-		DateTime datasaida = new DateTime();
+	public Double getTotalDevido(Quarto quarto , DateTime datasaida) {
 		
 		numDiarias = Days.daysBetween(quarto.getDataEntrada(), datasaida).getDays();
-		
 		return numDiarias * quarto.calculaDiaria();
 	}
 }

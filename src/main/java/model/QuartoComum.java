@@ -14,8 +14,7 @@ public class QuartoComum implements Quarto {
 	public Double calculaDiaria() {
 		
 		if(possuiBanheira){
-			tarifa = calculaTarifaComBanheira(tarifa);
-			return tarifa;
+			return calculaTarifaComBanheira();
 		}
 		
 		return tarifa;
@@ -50,9 +49,9 @@ public class QuartoComum implements Quarto {
 		this.possuiBanheira = possuiBanheira;
 	}
 	
-	private Double calculaTarifaComBanheira(Double tarifaSimples) {
+	private Double calculaTarifaComBanheira() {
 		
-		return tarifaSimples * 1.18;
+		return tarifa * 1.18;
 		
 	}
 	
