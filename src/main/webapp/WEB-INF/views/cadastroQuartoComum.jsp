@@ -57,15 +57,32 @@
 			</form:form>
           </div>
           <div class="tab-pane fade" id="chale">
-            porquinho da india
+            <form:form method="POST" action="/quartoRegistrado">
+				<c:choose>
+			        <c:when test="${todosOcupados}">
+			            <i class="icon-warning-sign"></i> Todos os quartos estão ocupados
+			        </c:when>
+			        <c:otherwise>
+			            <form:select path="numero" items="${quartos}" />
+			            <form:label path="possuiBanheira" class="checkbox">
+					    </form:label>
+					    <button type="submit" class="btn">Submit</button>
+			        </c:otherwise>
+			    </c:choose>
+			</form:form>
           </div>
         </div>
          <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="viewResources/js/bootstrap.js"></script>
     <script src="viewResources/js/bootstrap.min.js"></script>
     
-    
+    <script>$('#myTab a').click(function(e){
+		  e.preventDefault();
+		  $(this).tab('show');
+		})
+    </script>
 	</body>
 </html>

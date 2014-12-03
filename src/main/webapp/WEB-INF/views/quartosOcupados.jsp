@@ -38,7 +38,7 @@
 			<tr>
 			  <th>Numero Quarto</th>
 			  <th>Banheira</th>
-			  <th>Nome</th>
+			  <th>Data Entrada</th>
 			</tr>
 		</thead>
 		<tbody>

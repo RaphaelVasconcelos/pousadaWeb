@@ -19,7 +19,7 @@
 </head>
 <body>
 <jsp:include page="menu.jsp"/> 
-<h2>Registro de quarto</h2>
+<h2>Libera quarto</h2>
 <form:form method="POST" action="/quartoComumLiberado">
 	<form:select path="numero" items="${quartos}" />
     <button type="submit" class="btn">Submit</button>
