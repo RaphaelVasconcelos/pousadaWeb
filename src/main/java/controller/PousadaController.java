@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class PousadaController {
 	
 	private Pousada pousada;
+	private Double tarifaPousada;
 	
 	@RequestMapping("/principal")
 	public String execute() {
@@ -80,6 +81,7 @@ public class PousadaController {
 		DateTime localDate = new DateTime();
 		quartoComum.setEstaOcupado(true);
 		quartoComum.setDataEntrada(localDate);
+		quartoComum.setTarifa(getTarifaPousada());
 		
 		pousada.getQuartosLivres().remove(quartoComum.getNumero());
 		pousada.getQuartosOcupados().put(quartoComum.getNumero(), quartoComum);
@@ -119,15 +121,26 @@ public class PousadaController {
 	public String quartoLiberado(@ModelAttribute QuartoComum quartoComum, ModelMap model) {
 		Recibo recibo = new Recibo();
 		DateTime localDate = new DateTime();
-		quartoComum.setEstaOcupado(false);
+		Quarto quartoAliberar = pousada.getQuartosOcupados().get(quartoComum.getNumero());
 		
 		pousada.getQuartosOcupados().remove(quartoComum.getNumero());
 		pousada.getQuartosLivres().put(quartoComum.getNumero(), quartoComum);
 		
 		model.addAttribute("quarto", quartoComum);
-		model.addAttribute("totalDevido", recibo.getTotalDevido(quartoComum, localDate));
+		model.addAttribute("totalDevido", recibo.getTotalDevido(quartoAliberar, localDate));
 		
 		
 		return "cobranca";
+	}
+
+	public Double getTarifaPousada() {
+		if(tarifaPousada == null){
+			tarifaPousada = 10.00;
+		}
+		return tarifaPousada;
+	}
+
+	public void setTarifaPousada(Double tarifaPousada) {
+		this.tarifaPousada = tarifaPousada;
 	}
 }

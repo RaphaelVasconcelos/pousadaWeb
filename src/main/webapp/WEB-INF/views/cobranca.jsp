@@ -37,22 +37,18 @@
     	<thead>
 			<tr>
 			  <th>Numero Quarto</th>
-			  <th>Banheira</th>
-			  <th>Nome</th>
+			  <th>Total</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${quartos}" var="quarto">
-				<tr>
-				  <td>${quarto.value.numero}</td>
-				  <td>${quarto.value.possuiBanheira}</td>
-				  <td>${datafull}</td>
-				</tr>
-			</c:forEach>
+			<tr>
+			  <td>${quarto.numero}</td>
+			  <td>${totalDevido}</td>
+			</tr>
 		</tbody>
 	</table>
     
-    <a class="btn btn-small" href="/registroQuartoComum"><i class="icon-arrow-left"></i> Voltar</a>
+    <a class="btn btn-small" href="/liberaQuartoComum"><i class="icon-arrow-left"></i> Voltar</a>
      <!-- /container -->
 
     <!-- Le javascript

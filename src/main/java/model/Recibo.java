@@ -24,6 +24,10 @@ public class Recibo {
 	public Double getTotalDevido(Quarto quarto , DateTime datasaida) {
 		
 		numDiarias = Days.daysBetween(quarto.getDataEntrada(), datasaida).getDays();
+		if(numDiarias == 0){
+			//gambiarra de leve para trazer algo ahahah
+			numDiarias = 1;
+		}
 		return numDiarias * quarto.calculaDiaria();
 	}
 }
